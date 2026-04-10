@@ -133,7 +133,6 @@ def seed_demo_data(store) -> None:
         password=hash_password("admin123"),
         full_name="System Admin",
         role="admin",
-        created_at=datetime.now(timezone.utc),
     )
     db_session.add(admin)
 
@@ -144,7 +143,6 @@ def seed_demo_data(store) -> None:
         password=hash_password("lecturer123"),
         full_name="Demo Lecturer",
         role="lecturer",
-        created_at=datetime.now(timezone.utc),
     )
     db_session.add(lecturer)
 
@@ -155,7 +153,6 @@ def seed_demo_data(store) -> None:
         password=hash_password("student123"),
         full_name="Demo Student",
         role="student",
-        created_at=datetime.now(timezone.utc),
     )
     db_session.add(student)
     db_session.commit()
@@ -166,7 +163,6 @@ def seed_demo_data(store) -> None:
         code="PROG101",
         name="Introduction to Programming",
         lecturer_id=lecturer.id,
-        created_at=datetime.now(timezone.utc),
     )
     db_session.add(module)
     db_session.commit()
