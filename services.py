@@ -659,3 +659,56 @@ def export_payload(store, kind: str, format_name: str, user: dict[str, Any] | No
             return export_rows_csv(payload), f"{filename}.csv"
         raise ValueError("CSV export requires tabular data.")
     raise ValueError("Unsupported export format.")
+# ---------- helpers for app.py ----------
+def get_all_users(store=None) -> list[dict[str, Any]]:
+    """Return all users as list of dicts."""
+    return [u.to_dict() for u in db_session.query(User).all()]
+
+def get_all_modules(store=None) -> list[dict[str, Any]]:
+    return [m.to_dict() for m in db_session.query(Module).all()]
+
+def get_all_quizzes(store=None) -> list[dict[str, Any]]:
+    return [q.to_dict() for q in db_session.query(Quiz).all()]
+
+def get_all_attempts(store=None) -> list[dict[str, Any]]:
+    return [a.to_dict() for a in db_session.query(Attempt).all()]
+
+def get_module_students(store, module_id: str) -> list[dict[str, Any]]:
+    """Return list of student dicts enrolled in a module."""
+    module = find_by_id(Module, module_id)
+    if not module:
+        return []
+    students = []
+    for enrollment in module.enrollments:
+        student = enrollment.student
+        students.append(student.to_dict())
+    return students
+
+def get_quizzes_by_module(store, module_id: str) -> list[dict[str, Any]]:
+    """Return list of quiz dicts for a given module."""
+    quizzes = db_session.query(Quiz).filter_by(module_id=module_id).all()
+    return [q.to_dict() for q in quizzes]
+
+def get_attempts_by_lecturer(store, lecturer_id: str) -> list[dict[str, Any]]:
+    """Return all attempts for quizzes in modules taught by the lecturer."""
+    modules = db_session.query(Module).filter_by(lecturer_id=lecturer_id).all()
+    module_ids = [m.id for m in modules]
+    quiz_ids = [q.id for q in db_session.query(Quiz).filter(Quiz.module_id.in_(module_ids)).all()]
+    attempts = db_session.query(Attempt).filter(Attempt.quiz_id.in_(quiz_ids)).all()
+    return [a.to_dict() for a in attempts]
+
+def get_student_quizzes_with_attempts(store, student_id: str) -> list[dict[str, Any]]:
+    """Return quizzes for modules the student is enrolled in, with attempt info."""
+    # Get enrolled module ids
+    module_ids = [e.module_id for e in db_session.query(ModuleEnrollment).filter_by(student_id=student_id).all()]
+    quizzes = db_session.query(Quiz).filter(Quiz.module_id.in_(module_ids)).all()
+    attempts = {a.quiz_id: a for a in db_session.query(Attempt).filter_by(student_id=student_id).all()}
+    result = []
+    for quiz in quizzes:
+        attempt = attempts.get(quiz.id)
+        result.append({
+            **quiz.to_dict(),
+            "attempted": attempt is not None,
+            "attempt": attempt.to_dict() if attempt else None,
+        })
+    return result
