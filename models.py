@@ -1,4 +1,3 @@
-# models.py
 from database import Base
 from sqlalchemy import Column, String, Integer, Boolean, ForeignKey, JSON, DateTime, func
 from sqlalchemy.orm import relationship
@@ -13,11 +12,10 @@ class User(Base):
     role = Column(String(20), nullable=False)
     created_at = Column(DateTime, server_default=func.now())
 
-    # Relationships
     taught_modules = relationship("Module", foreign_keys="Module.lecturer_id", back_populates="lecturer")
-    enrollments = relationship("ModuleEnrollment", back_populates="student")   # ✅ added
-    quizzes_created = relationship("Quiz", back_populates="creator")            # ✅ added
-    attempts = relationship("Attempt", back_populates="student")                # ✅ added
+    enrollments = relationship("ModuleEnrollment", back_populates="student")
+    quizzes_created = relationship("Quiz", back_populates="creator")
+    attempts = relationship("Attempt", back_populates="student")
 
 class Module(Base):
     __tablename__ = "modules"
@@ -27,10 +25,9 @@ class Module(Base):
     lecturer_id = Column(String(36), ForeignKey("users.id"), nullable=True)
     created_at = Column(DateTime, server_default=func.now())
 
-    # Relationships
     lecturer = relationship("User", foreign_keys=[lecturer_id], back_populates="taught_modules")
-    enrollments = relationship("ModuleEnrollment", back_populates="module")    # ✅ added
-    quizzes = relationship("Quiz", back_populates="module")                    # ✅ added
+    enrollments = relationship("ModuleEnrollment", back_populates="module")
+    quizzes = relationship("Quiz", back_populates="module")
 
 class ModuleEnrollment(Base):
     __tablename__ = "module_enrollments"
@@ -38,7 +35,6 @@ class ModuleEnrollment(Base):
     student_id = Column(String(36), ForeignKey("users.id"), nullable=False)
     module_id = Column(String(36), ForeignKey("modules.id"), nullable=False)
 
-    # Relationships
     student = relationship("User", back_populates="enrollments")
     module = relationship("Module", back_populates="enrollments")
 
@@ -51,7 +47,6 @@ class Quiz(Base):
     created_by = Column(String(36), ForeignKey("users.id"), nullable=False)
     created_at = Column(DateTime, server_default=func.now())
 
-    # Relationships
     module = relationship("Module", back_populates="quizzes")
     creator = relationship("User", back_populates="quizzes_created")
     attempts = relationship("Attempt", back_populates="quiz")
@@ -70,6 +65,5 @@ class Attempt(Base):
     graded_by = Column(String(36), ForeignKey("users.id"), nullable=True)
     submitted_at = Column(DateTime, server_default=func.now())
 
-    # Relationships
     quiz = relationship("Quiz", back_populates="attempts")
     student = relationship("User", back_populates="attempts")
