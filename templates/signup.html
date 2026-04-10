@@ -1,0 +1,33 @@
+
+{% extends "base.html" %}
+{% set title = "Student Signup" %}
+{% block content %}
+<section class="card narrow">
+  <h2>Student Signup</h2>
+  <div id="flash" class="flash"></div>
+
+  <form id="signupForm" class="stack">
+    <label>Full Name
+      <input type="text" name="full_name" required>
+    </label>
+    <label>Username
+      <input type="text" name="username" required>
+    </label>
+    <label>Password
+      <input type="password" name="password" required>
+    </label>
+    <label>Choose Module
+      <select name="module_id" required>
+        <option value="">Select a module</option>
+        {% for module in modules %}
+          <option value="{{ module.id }}">{{ module.code }} - {{ module.name }} ({{ module.lecturer_name }})</option>
+        {% endfor %}
+      </select>
+    </label>
+    <button class="btn" type="submit">Create student account</button>
+  </form>
+
+  <p class="muted">Already have an account? <a href="{{ url_for('login_page') }}">Login</a></p>
+</section>
+<script>window.PAGE = "signup";</script>
+{% endblock %}

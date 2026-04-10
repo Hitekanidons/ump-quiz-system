@@ -1,0 +1,42 @@
+[
+  {
+    "id": "u_admin",
+    "username": "admin",
+    "password_hash": "pbkdf2_sha256$QKHFUhdPgO8IbsfECYXOPA==$gUVJTe7hXGVZviF94rZ323/NaYNtZwvk2aA4molzB1c=",
+    "full_name": "System Admin",
+    "role": "admin",
+    "created_at": "2026-04-10T13:10:44.424426+00:00"
+  },
+  {
+    "id": "u_lecturer_1",
+    "username": "lecturer",
+    "password_hash": "pbkdf2_sha256$w/BB4s5vBgxozXc+GyRzxA==$JKfBeCjfSMPz/XT7Rqbp1Skr3U8IbFRXKwOZsddLOwc=",
+    "full_name": "Demo Lecturer",
+    "role": "lecturer",
+    "created_at": "2026-04-10T13:10:44.505201+00:00"
+  },
+  {
+    "id": "u_student_1",
+    "username": "student",
+    "password_hash": "pbkdf2_sha256$/BLCPhnTJONh4Xu8MRLxrQ==$avd6gci8z+r49Vi3O0NRDHc1z1DUH862E3vxTx6qcQg=",
+    "full_name": "Demo Student",
+    "role": "student",
+    "created_at": "2026-04-10T13:10:44.583588+00:00"
+  },
+  {
+    "id": "u_1dec5e7672",
+    "username": "2302872973",
+    "password_hash": "pbkdf2_sha256$netJXYfdJpoqMUAADb6nAg==$LhJNIWwl46BKQuiD2TJ1yr3C3hLxIUunwII/IIiBYB4=",
+    "full_name": "masuku",
+    "role": "lecturer",
+    "created_at": "2026-04-10T13:23:09.479127+00:00"
+  },
+  {
+    "id": "u_5cee81c721",
+    "username": "32472642",
+    "password_hash": "pbkdf2_sha256$yWzkV2tsNXk+Sjn/5jlO4A==$GHGJvmgI4BGQ5GcSDGodf84RViK1OKxyjv5rV7hE0qs=",
+    "full_name": "brilliant",
+    "role": "student",
+    "created_at": "2026-04-10T13:24:18.787064+00:00"
+  }
+]

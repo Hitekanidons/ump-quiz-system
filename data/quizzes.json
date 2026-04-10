@@ -1,0 +1,56 @@
+[
+  {
+    "id": "q_prog101_1",
+    "module_id": "m_prog101",
+    "title": "Programming Basics Quiz",
+    "created_by": "u_lecturer_1",
+    "published": true,
+    "created_at": "2026-04-10T13:10:44.583641+00:00",
+    "questions": [
+      {
+        "id": "q1",
+        "text": "Which symbol is commonly used to start a comment in Python?",
+        "options": [
+          "//",
+          "#",
+          "<!--",
+          "%%"
+        ],
+        "correct_index": 1,
+        "points": 10
+      },
+      {
+        "id": "q2",
+        "text": "Which data type stores whole numbers?",
+        "options": [
+          "int",
+          "str",
+          "list",
+          "dict"
+        ],
+        "correct_index": 0,
+        "points": 10
+      }
+    ]
+  },
+  {
+    "id": "quiz_be40859418",
+    "module_id": "m_c6b2f42cf6",
+    "title": "chapter 1 quiz",
+    "questions": [
+      {
+        "id": "q_17f660bc03",
+        "text": "whta is lan",
+        "options": [
+          "local area network",
+          "wide area network"
+        ],
+        "correct_index": 0,
+        "points": 10
+      }
+    ],
+    "created_by": "u_1dec5e7672",
+    "published": true,
+    "created_at": "2026-04-10T13:26:22.927613+00:00"
+  }
+]

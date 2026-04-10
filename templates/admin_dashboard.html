@@ -1,0 +1,70 @@
+
+{% extends "base.html" %}
+{% set title = "Admin Dashboard" %}
+{% block content %}
+<section class="grid">
+  <article class="card">
+    <h2>System summary</h2>
+    <div id="adminSummary" class="stats"></div>
+  </article>
+
+  <article class="card">
+    <h2>Create lecturer</h2>
+    <form id="createLecturerForm" class="stack">
+      <label>Full Name <input name="full_name" required></label>
+      <label>Username <input name="username" required></label>
+      <label>Password <input name="password" required></label>
+      <button class="btn" type="submit">Save lecturer</button>
+    </form>
+  </article>
+
+  <article class="card">
+    <h2>Create module</h2>
+    <form id="createModuleForm" class="stack">
+      <label>Module Code <input name="code" placeholder="PROG101" required></label>
+      <label>Module Name <input name="name" required></label>
+      <label>Assign Lecturer
+        <select name="lecturer_id" id="lecturerSelect"></select>
+      </label>
+      <button class="btn" type="submit">Save module</button>
+    </form>
+  </article>
+
+  <article class="card">
+    <h2>Assign student to module</h2>
+    <form id="assignStudentForm" class="stack">
+      <label>Student
+        <select name="student_id" id="studentSelect"></select>
+      </label>
+      <label>Module
+        <select name="module_id" id="moduleSelect"></select>
+      </label>
+      <button class="btn" type="submit">Assign student</button>
+    </form>
+  </article>
+
+  <article class="card wide">
+    <h2>Users</h2>
+    <div id="usersTable"></div>
+  </article>
+
+  <article class="card wide">
+    <h2>Modules</h2>
+    <div id="modulesTable"></div>
+  </article>
+
+  <article class="card wide">
+    <h2>Exports</h2>
+    <div class="actions">
+      <a class="btn light" href="/api/export/users?format=json">Users JSON</a>
+      <a class="btn light" href="/api/export/users?format=csv">Users CSV</a>
+      <a class="btn light" href="/api/export/modules?format=json">Modules JSON</a>
+      <a class="btn light" href="/api/export/modules?format=csv">Modules CSV</a>
+      <a class="btn light" href="/api/export/quizzes?format=json">Quizzes JSON</a>
+      <a class="btn light" href="/api/export/attempts?format=json">Attempts JSON</a>
+    </div>
+  </article>
+</section>
+<div id="flash" class="flash"></div>
+<script>window.PAGE = "admin";</script>
+{% endblock %}

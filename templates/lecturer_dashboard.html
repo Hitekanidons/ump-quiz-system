@@ -1,0 +1,193 @@
+
+{% extends "base.html" %}
+{% set title = "Lecturer Dashboard" %}
+{% block content %}
+<section class="grid">
+  <article class="card wide">
+    <h2>Your modules</h2>
+    <div id="lecturerModules"></div>
+  </article>
+
+  <article class="card wide">
+    <h2>Create Quiz</h2>
+    <form id="createQuizForm" class="stack">
+      <label>Module
+        <select name="module_id" id="quizModuleSelect"></select>
+      </label>
+      <label>Quiz Title
+        <input name="title" required>
+      </label>
+
+      <div id="questionsContainer" class="stack">
+        <div class="question-section">
+          <h4>Question 1</h4>
+          <label>Question Type
+            <div class="type-selector">
+              <button type="button" class="type-option selected q1-type" data-type="multiple_choice" data-slot="1">Multiple Choice</button>
+              <button type="button" class="type-option q1-type" data-type="true_false" data-slot="1">True/False</button>
+              <button type="button" class="type-option q1-type" data-type="short_answer" data-slot="1">Short Answer</button>
+              <button type="button" class="type-option q1-type" data-type="essay" data-slot="1">Essay</button>
+            </div>
+            <input type="hidden" name="q1_type" value="multiple_choice">
+          </label>
+          <label>Question Text
+            <input name="q1_text" placeholder="Enter the question" class="question-text">
+          </label>
+          <div class="q1-content">
+            <label>Options (comma separated)
+              <input name="q1_options" placeholder="Option 1, Option 2, Option 3, Option 4">
+            </label>
+            <label>Correct Answer Index (0-based)
+              <input name="q1_correct" type="number" min="0" value="0" placeholder="0">
+            </label>
+          </div>
+          <label>Points
+            <input name="q1_points" type="number" min="1" value="10" placeholder="10">
+          </label>
+        </div>
+
+        <div class="question-section">
+          <h4>Question 2</h4>
+          <label>Question Type
+            <div class="type-selector">
+              <button type="button" class="type-option selected q2-type" data-type="multiple_choice" data-slot="2">Multiple Choice</button>
+              <button type="button" class="type-option q2-type" data-type="true_false" data-slot="2">True/False</button>
+              <button type="button" class="type-option q2-type" data-type="short_answer" data-slot="2">Short Answer</button>
+              <button type="button" class="type-option q2-type" data-type="essay" data-slot="2">Essay</button>
+            </div>
+            <input type="hidden" name="q2_type" value="multiple_choice">
+          </label>
+          <label>Question Text
+            <input name="q2_text" placeholder="Enter the question" class="question-text">
+          </label>
+          <div class="q2-content">
+            <label>Options (comma separated)
+              <input name="q2_options" placeholder="Option 1, Option 2, Option 3, Option 4">
+            </label>
+            <label>Correct Answer Index (0-based)
+              <input name="q2_correct" type="number" min="0" value="0" placeholder="0">
+            </label>
+          </div>
+          <label>Points
+            <input name="q2_points" type="number" min="1" value="10" placeholder="10">
+          </label>
+        </div>
+
+        <div class="question-section">
+          <h4>Question 3</h4>
+          <label>Question Type
+            <div class="type-selector">
+              <button type="button" class="type-option selected q3-type" data-type="multiple_choice" data-slot="3">Multiple Choice</button>
+              <button type="button" class="type-option q3-type" data-type="true_false" data-slot="3">True/False</button>
+              <button type="button" class="type-option q3-type" data-type="short_answer" data-slot="3">Short Answer</button>
+              <button type="button" class="type-option q3-type" data-type="essay" data-slot="3">Essay</button>
+            </div>
+            <input type="hidden" name="q3_type" value="multiple_choice">
+          </label>
+          <label>Question Text
+            <input name="q3_text" placeholder="Enter the question" class="question-text">
+          </label>
+          <div class="q3-content">
+            <label>Options (comma separated)
+              <input name="q3_options" placeholder="Option 1, Option 2, Option 3, Option 4">
+            </label>
+            <label>Correct Answer Index (0-based)
+              <input name="q3_correct" type="number" min="0" value="0" placeholder="0">
+            </label>
+          </div>
+          <label>Points
+            <input name="q3_points" type="number" min="1" value="10" placeholder="10">
+          </label>
+        </div>
+      </div>
+
+      <button class="btn" type="submit">Create Quiz</button>
+    </form>
+  </article>
+
+  <article class="card wide">
+    <h2>Module students</h2>
+    <div id="lecturerStudents"></div>
+  </article>
+
+  <article class="card wide">
+    <h2>Attempts to Grade</h2>
+    <div id="attemptsList"></div>
+  </article>
+
+  <article class="card wide">
+    <h2>Lecturer Report</h2>
+    <div id="lecturerReport"></div>
+  </article>
+
+  <article class="card wide">
+    <h2>Exports</h2>
+    <div class="actions">
+      <a class="btn light" href="/api/export/lecturer-report?format=json">Report JSON</a>
+      <a class="btn light" href="/api/export/lecturer-report?format=csv">Report CSV</a>
+      <a class="btn light" href="/api/export/quizzes?format=json">Quizzes JSON</a>
+      <a class="btn light" href="/api/export/attempts?format=json">Attempts JSON</a>
+    </div>
+  </article>
+</section>
+<div id="flash" class="flash"></div>
+<script>window.PAGE = "lecturer";</script>
+
+<script>
+// Handle question type selection
+document.addEventListener("DOMContentLoaded", () => {
+  for (let slot = 1; slot <= 3; slot++) {
+    const typeButtons = document.querySelectorAll(`.q${slot}-type`);
+    const typeInput = document.querySelector(`[name="q${slot}_type"]`);
+    const contentDiv = document.querySelector(`.q${slot}-content`);
+    
+    typeButtons.forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const type = btn.dataset.type;
+        typeInput.value = type;
+        
+        // Update button styles
+        typeButtons.forEach(b => b.classList.remove("selected"));
+        btn.classList.add("selected");
+        
+        // Update content based on type
+        if (contentDiv) {
+          if (type === "multiple_choice") {
+            contentDiv.innerHTML = `
+              <label>Options (comma separated)
+                <input name="q${slot}_options" placeholder="Option 1, Option 2, Option 3, Option 4">
+              </label>
+              <label>Correct Answer Index (0-based)
+                <input name="q${slot}_correct" type="number" min="0" value="0" placeholder="0">
+              </label>
+            `;
+          } else if (type === "true_false") {
+            contentDiv.innerHTML = `
+              <label>Correct Answer
+                <select name="q${slot}_correct_tf">
+                  <option value="true">True</option>
+                  <option value="false">False</option>
+                </select>
+              </label>
+            `;
+          } else if (type === "short_answer") {
+            contentDiv.innerHTML = `
+              <label>Correct Answers (comma separated - students must match one exactly)
+                <input name="q${slot}_correct_sa" placeholder="answer1, answer2, answer3">
+              </label>
+            `;
+          } else if (type === "essay") {
+            contentDiv.innerHTML = `
+              <label>Instructions for student (optional)
+                <textarea name="q${slot}_instructions" placeholder="Additional instructions for essay answer" style="min-height: 80px;"></textarea>
+              </label>
+            `;
+          }
+        }
+      });
+    });
+  }
+});
+</script>
+{% endblock %}

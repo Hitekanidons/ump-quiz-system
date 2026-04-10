@@ -1,0 +1,33 @@
+[
+  {
+    "id": "a_demo_1",
+    "quiz_id": "q_prog101_1",
+    "student_id": "u_student_1",
+    "answers": {
+      "q1": 1,
+      "q2": 0
+    },
+    "auto_score": 20,
+    "final_score": 20,
+    "total_score": 20,
+    "status": "graded",
+    "lecturer_comment": "Welcome to the system.",
+    "graded_by": "u_lecturer_1",
+    "submitted_at": "2026-04-10T13:10:44.583650+00:00"
+  },
+  {
+    "id": "attempt_a2e35a79df",
+    "quiz_id": "quiz_be40859418",
+    "student_id": "u_5cee81c721",
+    "answers": {
+      "q_17f660bc03": null
+    },
+    "auto_score": 0,
+    "final_score": 10,
+    "total_score": 10,
+    "status": "reviewed",
+    "lecturer_comment": "",
+    "graded_by": "u_1dec5e7672",
+    "submitted_at": "2026-04-10T13:26:55.957387+00:00"
+  }
+]

@@ -1,0 +1,33 @@
+
+{% extends "base.html" %}
+{% set title = "Student Dashboard" %}
+{% block content %}
+<section class="grid">
+  <article class="card wide">
+    <h2>Your modules</h2>
+    <div id="studentModules"></div>
+  </article>
+
+  <article class="card wide">
+    <h2>Your quizzes</h2>
+    <div id="studentQuizzes"></div>
+  </article>
+
+  <article class="card wide">
+    <h2>Your report</h2>
+    <div id="studentReport"></div>
+  </article>
+
+  <article class="card wide">
+    <h2>Exports</h2>
+    <div class="actions">
+      <a class="btn light" href="/api/export/student-report?format=json">Report JSON</a>
+      <a class="btn light" href="/api/export/student-report?format=csv">Report CSV</a>
+      <a class="btn light" href="/api/export/quizzes?format=json">Quizzes JSON</a>
+      <a class="btn light" href="/api/export/attempts?format=json">Attempts JSON</a>
+    </div>
+  </article>
+</section>
+<div id="flash" class="flash"></div>
+<script>window.PAGE = "student";</script>
+{% endblock %}

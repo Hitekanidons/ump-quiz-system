@@ -1,0 +1,24 @@
+
+{% extends "base.html" %}
+{% set title = "Login" %}
+{% block content %}
+<section class="card narrow">
+  <h2>Login</h2>
+  <p class="muted">Use the demo accounts: admin / admin123, lecturer / lecturer123, student / student123.</p>
+
+  <div id="flash" class="flash"></div>
+
+  <form id="loginForm" class="stack">
+    <label>Username
+      <input type="text" name="username" required>
+    </label>
+    <label>Password
+      <input type="password" name="password" required>
+    </label>
+    <button class="btn" type="submit">Login</button>
+  </form>
+
+  <p class="muted">No student account yet? <a href="{{ url_for('signup_page') }}">Sign up here</a>.</p>
+</section>
+<script>window.PAGE = "login";</script>
+{% endblock %}
