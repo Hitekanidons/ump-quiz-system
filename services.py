@@ -210,7 +210,6 @@ def seed_demo_data(store) -> None:
         title="Programming Basics Quiz",
         questions=questions,
         created_by=lecturer.id,
-        created_at=datetime.now(timezone.utc),
     )
     db_session.add(quiz)
     db_session.commit()
@@ -227,7 +226,6 @@ def seed_demo_data(store) -> None:
         has_essay=False,
         comment="Welcome to the system.",
         graded_by=lecturer.id,
-        submitted_at=datetime.now(timezone.utc),
     )
     db_session.add(attempt)
     db_session.commit()
@@ -250,7 +248,6 @@ def create_user(store, username: str, password: str, full_name: str, role: str) 
         password=hash_password(password),
         full_name=full_name.strip() or username.strip(),
         role=role,
-        created_at=datetime.now(timezone.utc),
     )
     save(user)
     return user.to_dict()
@@ -267,7 +264,6 @@ def create_module(store, code: str, name: str, lecturer_id: str) -> dict[str, An
         code=code.strip().upper(),
         name=name.strip(),
         lecturer_id=lecturer_id,
-        created_at=datetime.now(timezone.utc),
     )
     save(module)
     return module.to_dict()
