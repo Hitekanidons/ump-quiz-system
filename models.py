@@ -1,4 +1,5 @@
 # models.py
+from database import Base
 from sqlalchemy import Column, String, Integer, Boolean, ForeignKey, JSON, DateTime, func
 from sqlalchemy.orm import relationship
 import uuid
