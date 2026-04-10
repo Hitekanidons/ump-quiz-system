@@ -221,7 +221,7 @@ function buildQuestionsFromForm(form) {
     
     if (!text) continue;
     
-    const question: any = {
+    const question = {
       type: qType,
       text,
       points: Number(points || 1)
